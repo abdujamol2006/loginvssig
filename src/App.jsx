@@ -2,6 +2,7 @@ import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
   useNavigate,
@@ -10,23 +11,26 @@ import "./App.css";
 
 import Layout from "./layout";
 import Login from "./pages/login";
-import Home from "./pages/home";
+import SignUp from "./pages/SignUp";
 
 function App() {
-  /*const navigate = useNavigate();
-  function Redirect() {
-    let user = localStorage.getItem("user");
-    if (user === "true") {
-    } else {
-    }
-  }*/
+  function Redirect({ children }) {
+    let user = JSON.parse(localStorage.getItem("user")) ?? false;
+    return user ? children : <Navigate to="/" />;
+  }
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<Login />} />
-        <Route path="/layout" element={<Layout />}>
-          <Route index element={<Home />}></Route>
-        </Route>
+        <Route path="/" element={<Login />} />{" "}
+        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/layout"
+          element={
+            <Redirect>
+              <Layout />
+            </Redirect>
+          }
+        ></Route>
       </>
     )
   );

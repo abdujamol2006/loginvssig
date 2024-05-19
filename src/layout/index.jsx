@@ -1,10 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function Layout() {
   return (
     <>
-      <header>Header</header>
+      <header>
+        <div className="container">
+          <Link to="/">Login</Link>
+          <Link to="/signup">SignUp</Link>
+        </div>
+      </header>
       <main>
         <Outlet />
       </main>

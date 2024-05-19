@@ -1,16 +1,20 @@
 import React, { useRef } from "react";
 import "./style.css";
+import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const username = useRef();
   const password = useRef();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    let userName = username.current.value;
-    let password = password.current.value;
-    if (userName === "login20" && password === "login1234") {
-      localStorage.setItem("user", true);
+    let name = username.current.value;
+    let code = password.current.value;
+    console.log(username.current.value, password.current.value);
+    if (name === "login20@gmail.com" && code === "login1234") {
+      localStorage.setItem("user", JSON.stringify(true));
+      navigate("/layout");
     } else {
-      localStorage.setItem("user", false);
+      localStorage.setItem("user", JSON.stringify(false));
     }
   };
   return (
@@ -43,7 +47,9 @@ function Login() {
               </button>
             </form>
             <div className="social-login">
-              <h3>log in via</h3>
+              <h3>
+                <Link to="/signup">SignUp</Link>
+              </h3>
               <div className="social-icons">
                 <a href="#" className="social-login__icon fab fa-instagram"></a>
                 <a href="#" className="social-login__icon fab fa-facebook"></a>
