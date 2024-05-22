@@ -7,14 +7,24 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    let name = username.current.value;
-    let code = password.current.value;
-    console.log(username.current.value, password.current.value);
-    if (name === "login20@gmail.com" && code === "login1234") {
-      localStorage.setItem("user", JSON.stringify(true));
-      navigate("/layout");
-    } else {
-      localStorage.setItem("user", JSON.stringify(false));
+    function handleSubmit(e) {
+      e.preventDefault();
+      let name = username.current.value;
+      let code = password.current.value;
+      const data = JSON.parse(localStorage.getItem("usersData")) ?? [];
+
+      // **Filter users by login and password**
+      const user = data.filter((userObj) => {
+        return userObj.login === name && userObj.password === code; // Compare with the correct fields
+      });
+
+      if (user.length) {
+        localStorage.setItem("user", JSON.stringify(true));
+        navigate("/layout");
+      } else {
+        localStorage.setItem("user", JSON.stringify(false));
+        // You may want to handle the invalid login scenario here (e.g., display an error message)
+      }
     }
   };
   return (
@@ -47,7 +57,7 @@ function Login() {
               </button>
             </form>
             <div className="social-login">
-              <h3>
+              <h3 className="signup">
                 <Link to="/signup">SignUp</Link>
               </h3>
               <div className="social-icons">
