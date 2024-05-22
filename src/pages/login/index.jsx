@@ -5,28 +5,26 @@ function Login() {
   const username = useRef();
   const password = useRef();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+
+  function handleSubmit(e) {
     e.preventDefault();
-    function handleSubmit(e) {
-      e.preventDefault();
-      let name = username.current.value;
-      let code = password.current.value;
-      const data = JSON.parse(localStorage.getItem("usersData")) ?? [];
+    let name = username.current.value;
+    let code = password.current.value;
+    const data = JSON.parse(localStorage.getItem("usersData")) ?? [];
 
-      // **Filter users by login and password**
-      const user = data.filter((userObj) => {
-        return userObj.login === name && userObj.password === code; // Compare with the correct fields
-      });
+    // **Filter users by login and password**
+    const user = data.filter((userObj) => {
+      return userObj.login === name && userObj.password === code; // Compare with the correct fields
+    });
 
-      if (user.length) {
-        localStorage.setItem("user", JSON.stringify(true));
-        navigate("/layout");
-      } else {
-        localStorage.setItem("user", JSON.stringify(false));
-        // You may want to handle the invalid login scenario here (e.g., display an error message)
-      }
+    if (user.length) {
+      localStorage.setItem("user", JSON.stringify(true));
+      navigate("/layout");
+    } else {
+      localStorage.setItem("user", JSON.stringify(false));
+      // You may want to handle the invalid login scenario here (e.g., display an error message)
     }
-  };
+  }
   return (
     <>
       <div className="container">

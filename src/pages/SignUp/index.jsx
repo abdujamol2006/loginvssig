@@ -3,7 +3,7 @@ import "./index.css";
 import { Link } from "react-router-dom";
 
 function SignUp() {
-  const [userInput, setUserInput] = useState({
+  /*const [userInput, setUserInput] = useState({
     name: "",
     phone: "",
     login: "",
@@ -33,8 +33,8 @@ function SignUp() {
     );
 
     setUserInput({ name: "", phone: "", login: "", password: "" });
-  }
-  /* const [userInput, setUserInput] = useState({
+  }*/
+  const [userInput, setUserInput] = useState({
     name: "",
     phone: "",
     login: "",
@@ -42,10 +42,16 @@ function SignUp() {
   });
   function handleSubmit(e) {
     e.preventDefault();
-    const data = JSON.parse(localStorage.getItem("usersData")) ?? [];
-    localStorage.setItem("usersData ", JSON.stringify([...data, userInput]));
+    const data = JSON.parse(localStorage.getItem("usersData"))
+      ? JSON.parse(localStorage.getItem("usersData"))
+      : [];
+    console.log(data);
+    localStorage.setItem(
+      "usersData",
+      JSON.stringify([...data, { ...userInput }])
+    );
     setUserInput({ name: "", phone: "", login: "", password: "" });
-  }*/
+  }
   return (
     <>
       <div className="container sign-container">
